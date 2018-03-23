@@ -13,7 +13,7 @@ class ShotModel {
   final String createdAt;
   final UserModel team;
   final UserModel user;
-  final Object images;
+  final ImagesModel images;
 
   ShotModel({
     this.id,
@@ -41,7 +41,7 @@ class ShotModel {
       commentsCount: json['comments_count'],
       htmlUrl: json['html_url'],
       createdAt: json['created_at'],
-      team: new UserModel.fromJson(json['team']),
+      team: json['team'] != null ? new UserModel.fromJson(json['team']) : null,
       user: new UserModel.fromJson(json['user']),
       images: new ImagesModel.fromJson(json['images'])
     );

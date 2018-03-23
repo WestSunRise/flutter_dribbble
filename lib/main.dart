@@ -49,7 +49,7 @@ class MainState extends State<Main> with SingleTickerProviderStateMixin {
       body: new TabBarView(
         controller: _tabController,
         children: Tabs.map((TabItem tabItem) {
-          return new Shots();
+          return new Shots(tabTitle: tabItem.title);
         }).toList(),
       )
     );
