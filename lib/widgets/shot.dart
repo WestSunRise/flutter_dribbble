@@ -11,6 +11,7 @@ class Shot extends StatelessWidget {
     Widget build(BuildContext context) {
       return new GestureDetector(
         onTap: () {
+          Navigator.pushNamed(context, '/shots/${shot.id}');
           print('tap shot : ${shot.id}');
         },
         child: new Container(
