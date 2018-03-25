@@ -9,17 +9,17 @@ void main() => runApp(new App());
 class App extends StatelessWidget {
 
   final Router router = new Router();
-  
+
   App() {
-    configureRouter(router);
+    Routes.initRoutes();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Dribbble',
       home: new DribbbleApp(),
-      onGenerateRoute: router.generator
+      onGenerateRoute: Routes.router.generator
     );
   }
 }
