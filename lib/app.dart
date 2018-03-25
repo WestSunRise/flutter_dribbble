@@ -31,7 +31,7 @@ class DribbbleAppState extends State<DribbbleApp> with SingleTickerProviderState
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             new SliverAppBar(
-              title: const Text('Tabs and scrolling'),
+              title: const Text('Dribbble'),
               pinned: true,
               floating: true,
               elevation: 0.0,

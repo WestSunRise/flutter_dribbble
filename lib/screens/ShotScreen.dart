@@ -6,8 +6,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 class ShotScreen extends StatelessWidget {
   
   // final ShotModel shot;
+  final String shotId;
 
-  // ShotScreen(this.shot);
+  ShotScreen({
+    this.shotId
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +32,9 @@ class ShotScreen extends StatelessWidget {
           fit: StackFit.expand,
           children: <Widget>[
             new Hero(
-              tag: "Movie-Tag-1",
+              tag: 'tag:shot-${this.shotId}',
               child: new CachedNetworkImage(
-                imageUrl: 'https://cdn.dribbble.com/users/1094383/screenshots/4384462/800x600-v-2_4_1x.gif',
+                imageUrl: 'https://cdn.dribbble.com/users/997070/screenshots/4384948/referal-invite.gif',
                 placeholder: new Center(
                     child: new CircularProgressIndicator(strokeWidth: 2.0),
                 ),

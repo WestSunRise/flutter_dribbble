@@ -22,7 +22,8 @@ class Shot extends StatelessWidget {
           );
           print('tap shot : ${shot.id}');
         },
-        child: new Container(
+        child: new Hero(
+          tag: 'tag:shot-${shot.id}',
           child: new CachedNetworkImage(
             imageUrl: shot.images.normal,
             placeholder: new Center(

@@ -38,5 +38,5 @@ class Routes {
 }
 
 var shotHandler = new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-  return new ShotScreen();
+  return new ShotScreen(shotId: params['id'].first);
 });
