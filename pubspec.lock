@@ -22,6 +22,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.4"
+  async_loader:
+    dependency: "direct main"
+    description:
+      name: async_loader
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.1"
   barback:
     dependency: transitive
     description:

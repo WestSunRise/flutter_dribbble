@@ -23,36 +23,66 @@ class MainState extends State<Main> with SingleTickerProviderStateMixin {
   TabController _tabController;
   
   @override
-    void initState() {
-      super.initState();
-      _tabController = new TabController(vsync: this, length: Tabs.length);
-    }
+  void initState() {
+    super.initState();
+    print('[Main] initState');
+    _tabController = new TabController(vsync: this, length: Tabs.length);
+  }
+
   @override
-    void dispose() {
-      super.dispose();
-      _tabController.dispose();
-    }
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
+  }
   
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Dribbble'),
-        elevation: 0.0,
-        bottom: new TabBar(
+      body: new NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            new SliverAppBar(
+              title: const Text('Tabs and scrolling'),
+              pinned: true,
+              floating: true,
+              elevation: 0.0,
+              forceElevated: innerBoxIsScrolled,
+              bottom: new TabBar(
+                controller: _tabController,
+                tabs: Tabs.map((TabItem tabItem) {
+                  return new Tab(text: tabItem.title);
+                }).toList()
+              )
+            )
+          ];
+        },
+        body: new TabBarView(
           controller: _tabController,
-          tabs: Tabs.map((TabItem tabItem) {
-            return new Tab(text: tabItem.title);
+          children: Tabs.map((TabItem tabItem) {
+            return new Shots(tabTitle: tabItem.title);
           }).toList()
-        ),
+        )
       ),
-      body: new TabBarView(
-        controller: _tabController,
-        children: Tabs.map((TabItem tabItem) {
-          return new Shots(tabTitle: tabItem.title);
-        }).toList(),
-      )
     );
+    
+    // return new Scaffold(
+    //   appBar: new AppBar(
+    //     title: new Text('Dribbble'),
+    //     elevation: 0.0,
+    //     bottom: new TabBar(
+    //       controller: _tabController,
+    //       tabs: Tabs.map((TabItem tabItem) {
+    //         return new Tab(text: tabItem.title);
+    //       }).toList()
+    //     ),
+    //   ),
+    //   body: new TabBarView(
+    //     controller: _tabController,
+    //     children: Tabs.map((TabItem tabItem) {
+    //       return new Shots(tabTitle: tabItem.title);
+    //     }).toList(),
+    //   )
+    // );
   }
 }
 

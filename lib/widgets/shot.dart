@@ -5,21 +5,23 @@ import 'package:flutter_dribbble/models/ShotModel.dart';
 class Shot extends StatelessWidget {
   final ShotModel shot;
 
-  Shot({
-    this.shot
-  });
+  Shot(this.shot);
 
   @override
     Widget build(BuildContext context) {
-      return new Container(
-        child: new CachedNetworkImage(
-          imageUrl: shot.images.normal,
-          placeholder: new Center(
-            child: new CircularProgressIndicator(),
-          ), 
-          errorWidget: new Icon(Icons.error), 
-          alignment: Alignment.center,
-          // fit: BoxFit.cover,
+      return new GestureDetector(
+        onTap: () {
+          print('tap shot : ${shot.id}');
+        },
+        child: new Container(
+          child: new CachedNetworkImage(
+            imageUrl: shot.images.normal,
+            placeholder: new Center(
+                child: new CircularProgressIndicator(strokeWidth: 2.0),
+            ),
+            errorWidget: new Icon(Icons.error), 
+            alignment: Alignment.center
+          ),
         ),
       );
     }
