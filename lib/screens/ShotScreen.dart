@@ -34,7 +34,7 @@ class ShotScreen extends StatelessWidget {
             new Hero(
               tag: 'tag:shot-${this.shotId}',
               child: new CachedNetworkImage(
-                imageUrl: 'https://cdn.dribbble.com/users/997070/screenshots/4384948/referal-invite.gif',
+                imageUrl: 'https://cdn.dribbble.com/users/159888/screenshots/4385349/forest3333.png',
                 placeholder: new Center(
                     child: new CircularProgressIndicator(strokeWidth: 2.0),
                 ),

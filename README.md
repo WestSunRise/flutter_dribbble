@@ -1,4 +1,10 @@
 # Flutter Dribbble
 > A new Flutter project.
 
-WIP.
+WIP...
+
+## Screenshots
+
+### Home
+
+![Home](screenshots/home-screenshots.gif)
