@@ -1,11 +1,14 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:async_loader/async_loader.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
-import 'package:flutter_dribbble/widgets/shot.dart';
 import 'package:flutter_dribbble/models/ShotModel.dart';
 
+import 'package:flutter_dribbble/models/AppState.dart';
+import 'package:flutter_dribbble/Actions.dart';
 import 'package:flutter_dribbble/modules/client.dart' as Client;
+import 'package:flutter_dribbble/models/ShotsViewModel.dart';
+
+import 'package:flutter_dribbble/widgets/shot.dart';
 
 class Shots extends StatefulWidget {
   final String tabTitle;
@@ -13,94 +16,104 @@ class Shots extends StatefulWidget {
   Shots({Key key, this.tabTitle}) : super(key: key);
   
   @override
-  ShotsState createState () => new ShotsState(tabTitle);
+  _ShotsState createState () => new _ShotsState();
 }
 
-class ShotsState extends State<Shots> {
-  final GlobalKey<AsyncLoaderState> _asyncLoaderState = new GlobalKey<AsyncLoaderState>();
-  final String tabTitle;
+class _ShotsState extends State<Shots> {
   final ScrollController scrollController = new ScrollController();
-  List<ShotModel> shots;
-  int page = 1;
-  bool fetching;
-
-  ShotsState(this.tabTitle);
-
-  Future<List<ShotModel>> _getList (int _page) async {
-    fetching = true;
-    var future;
-    switch (tabTitle) {
-      case 'RECENT':
-        future = await Client.Shot.getList(sort: 'recent', page: _page);
-        break;
-      case 'TEAMS':
-        future = await Client.Shot.getList(list: 'team', page: _page);
-        break;
-      case 'POPLUAR':
-      default:
-        future = await Client.Shot.getList(page: _page);
-        break;
-    }
-    fetching = false;
-    return future;
-  }
   
   @override
   Widget build(BuildContext context) {
-    return new AsyncLoader(
-      key: _asyncLoaderState,
-      initState: () async => await _getList(page),
-      renderLoad: () => new Center(child: new CircularProgressIndicator()),
-      renderError: ([ error ]) => new Center(child: new Text('error: ${error.toString()}')),
-      renderSuccess: ({ data }) {
-        shots = data;
+    
+    return new StoreConnector<AppState, ShotsViewModel>(
+      onWillChange: (ShotsViewModel viewModel) {
+        print('->>>>>> change');
+      },
+      distinct: true,
+      converter: (store) {
+        
+        ShotsState shotsState = getShotsState(widget.tabTitle, store.state);
+        
+        return new ShotsViewModel(
+          shotsState: shotsState,
+          onRefresh: () async {
+            var params = Client.getShotsApiParams(widget.tabTitle);
+            List<ShotModel> shots = await Client.Shot.getList(sort: params['sort'], list: params['list'], page: 1);
+            store.dispatch(
+              new SaveShotsAction(
+                tabTitle: widget.tabTitle,
+                shots: shots,
+                page: 1
+              )
+            );
+          },
+          loadNextPage: () {
+            ShotsState shotsState = getShotsState(widget.tabTitle, store.state);
+            print('---------->>>>>> ${shotsState.loading}');
+            if (!shotsState.loading) {
+              store.dispatch(new FetchShotsAction(
+                tabTitle: widget.tabTitle,
+                page: shotsState.page + 1
+              ));
+            }
+          }
+        );
+      },
+      onInit: (store) {
+        store.dispatch(new FetchShotsAction(
+          tabTitle: widget.tabTitle,
+          page: 1
+        ));
+      },
+      builder: (BuildContext context, ShotsViewModel viewModel) {
+        List<Widget> slivers = [
+          new SliverPadding(
+            padding: const EdgeInsets.all(14.0),
+            sliver: new SliverGrid(
+              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisSpacing: 16.0,
+                crossAxisCount: 2,
+                childAspectRatio: 1.18,
+              ),
+              delegate: new SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  if (index > (viewModel.shotsState.shots.length * 0.8) && !viewModel.shotsState.loading){
+                    viewModel.loadNextPage();
+                  }
+                  return new Shot(viewModel.shotsState.shots[index]);
+                },
+                childCount: viewModel.shotsState.shots.length
+              ),
+            ),
+          )
+        ];
+        
+        if (viewModel.shotsState.loading) {
+          slivers.add(
+            new SliverToBoxAdapter(
+              child: new Center(
+                child: new CircularProgressIndicator(),
+              )
+            )
+          );
+        } else {
+          if (viewModel.shotsState.shots.length == 0) {
+            slivers.add(
+              new SliverToBoxAdapter(
+                child: new Center(child: new Text('No more'))
+              )
+            );
+          }
+        }
 
         return new RefreshIndicator(
-          onRefresh: _onRefresh,
-          child: new GridView.builder(
+          onRefresh: viewModel.onRefresh,
+          child: new CustomScrollView(
             controller: scrollController,
-            itemCount: shots.length,
-            gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisSpacing: 16.0,
-              crossAxisCount: 2,
-              childAspectRatio: 1.18,
-            ),
-            padding: const EdgeInsets.all(14.0),
-            itemBuilder: (BuildContext context, int index) {
-              if (index > (shots.length * 0.8) && !fetching) {
-                _loadNextPage();
-              }
-              return new Shot(shots[index]);
-            },
+            slivers: slivers,
           )
         );
       },
     );
-  }
-
-  Future _onRefresh() async {
-    page = 1;
-
-    try {
-      var newShots = await _getList(page);
-      setState(() {
-        shots = [];
-        shots.addAll(newShots);
-      });
-    } catch (e) {
-      // TODO
-    }
-  }
-  
-  void _loadNextPage() async {
-    ++page;
-    try {
-      var newShots = await _getList(page);
-      setState(() {
-        shots.addAll(newShots);
-      });
-    } catch (e) {
-      // TODO 
-    }
   }
 }

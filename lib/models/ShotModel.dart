@@ -46,7 +46,7 @@ class ShotModel {
       team: json['team'] != null ? new UserModel.fromJson(json['team']) : null,
       user: new UserModel.fromJson(json['user']),
       images: new ImagesModel.fromJson(json['images']),
-      colorHexes: json['color_hexes']
+      colorHexes: new List.from(json['color_hexes'])
     );
   }
 }

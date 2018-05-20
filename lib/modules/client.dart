@@ -7,7 +7,7 @@ import 'package:flutter_dribbble/models/ShotModel.dart';
 final String domain = 'https://api.dribbble.com/';
 final String accessToken = '858782a9e363c9a5c434f356af378811649a6d376a40ae24c19a561f627b9afa';
 
-Uri getUri (String path, Map json) {
+Uri getUri (String path, Map<String, dynamic> json) {
   json["access_token"] = accessToken;
   return new Uri(
     scheme: 'https',
@@ -30,4 +30,24 @@ abstract class Shot {
     final List json = JSON.decode(response.body);
     return json.map((shot) => new ShotModel.fromJson(shot)).toList();
   }
+}
+
+Map<String, String> getShotsApiParams(String tabTitle) {
+  Map<String, String> map = {
+    'list': '',
+    'sort': ''
+  };
+  switch (tabTitle) {
+    case 'RECENT':
+      map['sort'] = 'recent';
+      break;
+    case 'TEAMS':
+      map['list'] = 'teams';
+      break;
+    case 'POPLUAR':
+    default:
+      break;
+  }
+
+  return map;
 }
