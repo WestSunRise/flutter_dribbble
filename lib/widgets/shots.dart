@@ -26,10 +26,7 @@ class _ShotsState extends State<Shots> {
   Widget build(BuildContext context) {
     
     return new StoreConnector<AppState, ShotsViewModel>(
-      onWillChange: (ShotsViewModel viewModel) {
-        print('->>>>>> change');
-      },
-      distinct: true,
+
       converter: (store) {
         
         ShotsState shotsState = getShotsState(widget.tabTitle, store.state);
@@ -80,7 +77,11 @@ class _ShotsState extends State<Shots> {
                   if (index > (viewModel.shotsState.shots.length * 0.8) && !viewModel.shotsState.loading){
                     viewModel.loadNextPage();
                   }
-                  return new Shot(viewModel.shotsState.shots[index]);
+                  return new Shot(
+                    shot: viewModel.shotsState.shots[index],
+                    shotIndex: index,
+                    tabTitle: widget.tabTitle,
+                  );
                 },
                 childCount: viewModel.shotsState.shots.length
               ),

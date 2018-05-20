@@ -7,8 +7,14 @@ import 'package:flutter_dribbble/routes.dart';
 
 class Shot extends StatelessWidget {
   final ShotModel shot;
+  final int shotIndex;
+  final String tabTitle;
 
-  Shot(this.shot);
+  Shot({
+    this.shot,
+    this.tabTitle,
+    this.shotIndex,
+  });
 
   @override
     Widget build(BuildContext context) {
@@ -16,7 +22,7 @@ class Shot extends StatelessWidget {
         onTap: () {
           Routes.getInstance().navigateTo(
             context,
-            '/shots/${shot.id}',
+            '/shots/' + shot.id.toString() + '?tabTitle=' + tabTitle + '&shotIndex=' + shotIndex.toString(),
             transition: TransitionType.custom,
             transitionBuilder: (context, animation, secondaryAnimation, child) => new FadeTransition(opacity: animation, child: child),
           );
