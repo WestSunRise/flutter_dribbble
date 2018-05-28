@@ -5,6 +5,11 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_dribbble/models/AppState.dart';
 
 import 'package:flutter_dribbble/models/ShotModel.dart';
+import 'package:flutter_dribbble/utils/utils.dart';
+
+
+// widgets
+import 'package:flutter_dribbble/widgets/profile.dart';
 
 class ShotScreen extends StatelessWidget {
   
@@ -29,7 +34,8 @@ class ShotScreen extends StatelessWidget {
         return new Scaffold(
           body: new CustomScrollView(
             slivers: <Widget>[
-              _buildShotImage(shot)
+              _buildAppBar(shot),
+              SliverToBoxAdapter(child: Profile(shot))
             ]
           )
         );
@@ -40,29 +46,36 @@ class ShotScreen extends StatelessWidget {
     );
   }
   
+  Widget _buildAppBar(ShotModel shot) {
+    return new SliverAppBar(
+      pinned: true,
+      expandedHeight: 340.0,
+      backgroundColor: hexToColor(shot.colorHexes[2]),
+      flexibleSpace: new FlexibleSpaceBar(
+        background: _buildShotImage(shot),
+      ),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.share),
+          onPressed: () {
+
+          },
+        )
+      ]
+    );
+  }
 
   Widget _buildShotImage(ShotModel shot) {
-    return new SliverAppBar(
-      expandedHeight: 240.0,
-      pinned: true,
-      flexibleSpace: new FlexibleSpaceBar(
-        background: new Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            new Hero(
-              tag: 'tag:shot-${this.shotId}',
-              child: new CachedNetworkImage(
-                imageUrl: shot.images.normal,
-                placeholder: new Center(
-                    child: new CircularProgressIndicator(strokeWidth: 2.0),
-                ),
-                errorWidget: new Icon(Icons.error), 
-                alignment: Alignment.center,
-                fit: BoxFit.cover,
-              ),
-            )
-          ],
+    return new Hero(
+      tag: 'tag:shot-${this.shotId}',
+      child: new CachedNetworkImage(
+        imageUrl: shot.images.normal,
+        placeholder: new Center(
+            child: new CircularProgressIndicator(strokeWidth: 2.0),
         ),
+        errorWidget: new Icon(Icons.error), 
+        alignment: Alignment.bottomCenter,
+        fit: BoxFit.contain,
       ),
     );
   }

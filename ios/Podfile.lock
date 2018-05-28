@@ -7,16 +7,16 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Pods/.symlinks/flutter/ios`)
-  - path_provider (from `Pods/.symlinks/plugins/path_provider-0.3.1/ios`)
-  - shared_preferences (from `Pods/.symlinks/plugins/shared_preferences-0.3.3/ios`)
+  - path_provider (from `Pods/.symlinks/plugins/path_provider-0.4.0/ios`)
+  - shared_preferences (from `Pods/.symlinks/plugins/shared_preferences-0.4.1/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Pods/.symlinks/flutter/ios
   path_provider:
-    :path: Pods/.symlinks/plugins/path_provider-0.3.1/ios
+    :path: Pods/.symlinks/plugins/path_provider-0.4.0/ios
   shared_preferences:
-    :path: Pods/.symlinks/plugins/shared_preferences-0.3.3/ios
+    :path: Pods/.symlinks/plugins/shared_preferences-0.4.1/ios
 
 SPEC CHECKSUMS:
   Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
