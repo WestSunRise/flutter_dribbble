@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_dribbble/models/ShotModel.dart';
+import 'package:flutter_dribbble/models/ShotCommentModel.dart';
 
 final String domain = 'https://api.dribbble.com/';
 final String accessToken = '858782a9e363c9a5c434f356af378811649a6d376a40ae24c19a561f627b9afa';
@@ -29,6 +30,17 @@ abstract class Shot {
     final response = await http.get(uri.toString());
     final List json = JSON.decode(response.body);
     return json.map((shot) => new ShotModel.fromJson(shot)).toList();
+  }
+
+  static Future<List<ShotCommentModel>> getComments({ int shotId, int page = 1, int perPage = 20 }) async {
+    final Uri uri = getUri('i1/shots/${shotId.toString()}/comments', {
+      "page": page.toString(),
+      "per_page": perPage.toString()
+    });
+    print('[Fetch] uri: ' + uri.toString());
+    final response = await http.get(uri.toString());
+    final List json = JSON.decode(response.body);
+    return json.map((comment) => new ShotCommentModel.fromJson(comment)).toList();
   }
 }
 

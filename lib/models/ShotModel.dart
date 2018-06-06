@@ -15,6 +15,7 @@ class ShotModel {
   final UserModel user;
   final ImagesModel images;
   final List<String> colorHexes;
+  final List<String> tags;
 
   ShotModel({
     this.id,
@@ -29,7 +30,8 @@ class ShotModel {
     this.team,
     this.user,
     this.images,
-    this.colorHexes
+    this.colorHexes,
+    this.tags
   });
 
   factory ShotModel.fromJson(Map<String, dynamic> json) {
@@ -46,7 +48,8 @@ class ShotModel {
       team: json['team'] != null ? new UserModel.fromJson(json['team']) : null,
       user: new UserModel.fromJson(json['user']),
       images: new ImagesModel.fromJson(json['images']),
-      colorHexes: new List.from(json['color_hexes'])
+      colorHexes: new List.from(json['color_hexes']),
+      tags: new List.from(json['tags'])
     );
   }
 }

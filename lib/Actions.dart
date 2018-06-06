@@ -1,5 +1,6 @@
 
 import 'package:flutter_dribbble/models/ShotModel.dart';
+import 'package:flutter_dribbble/models/ShotCommentModel.dart';
 
 class FetchShotsAction {
   final String tabTitle;
@@ -23,16 +24,27 @@ class SaveShotsAction {
   });
 }
 
-enum Actions {
-  FetchPopuarList,
-  FetchPopuarListDone,
-  FetchPopuarListError,
 
-  FetchRecentList,
-  FetchRecentListDone,
-  FetchRecentListError,
+class FetchShotCommentsAction {
+  final int shotId;
+  final int page;
 
-  FetchTeamsList,
-  FetchTeamsListDone,
-  FetchTeamsListError,
+  FetchShotCommentsAction({
+    this.shotId,
+    this.page
+  });
+}
+
+class SaveShotCommentsAction {
+  final int shotId;
+  final String errorMsg;
+  final List<ShotCommentModel> comments;
+  final int page;
+
+  SaveShotCommentsAction({
+    this.shotId,
+    this.comments,
+    this.errorMsg,
+    this.page
+  });
 }

@@ -97,6 +97,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.1"
+  flutter_custom_tabs:
+    dependency: transitive
+    description:
+      name: flutter_custom_tabs
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.0"
+  flutter_html_view:
+    dependency: "direct main"
+    description:
+      name: flutter_html_view
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.1"
   flutter_redux:
     dependency: "direct main"
     description:
@@ -394,6 +408,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.5"
+  url_launcher:
+    dependency: transitive
+    description:
+      name: url_launcher
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.1"
   utf:
     dependency: transitive
     description:
@@ -415,6 +436,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.6"
+  video_player:
+    dependency: transitive
+    description:
+      name: video_player
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.3"
   watcher:
     dependency: transitive
     description:
@@ -438,4 +466,4 @@ packages:
     version: "2.1.13"
 sdks:
   dart: ">=2.0.0-dev.52.0 <=2.0.0-dev.54.0.flutter-46ab040e58"
-  flutter: ">=0.1.4 <2.0.0"
+  flutter: ">=0.2.5 <2.0.0"

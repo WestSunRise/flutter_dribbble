@@ -4,6 +4,32 @@ import 'package:flutter_dribbble/Actions.dart';
 import 'package:flutter_dribbble/models/ShotModel.dart';
 
 AppState reducer(AppState prevState, action) {
+
+  if (action is FetchShotCommentsAction) {
+    AppState state = prevState.copyWith(
+      shotCommentState: ShotCommentState(
+        comments: action.page == 1 ? [] : prevState.shotCommentState.comments,
+        loading: true,
+        page: action.page,
+        errorMsg: null
+      )
+    );
+    return state;
+  }
+
+  if (action is SaveShotCommentsAction) {
+    AppState state = prevState.copyWith(
+      shotCommentState: prevState.shotCommentState.copyWith(
+        comments: prevState.shotCommentState.comments + action.comments,
+        loading: false,
+        errorMsg: action.errorMsg,
+        page: action.page
+      )
+    );
+    return state;
+  }
+  
+  
   // TODO
   if (action is FetchShotsAction) {
     ShotsState shotsState = getShotsState(action.tabTitle, prevState);

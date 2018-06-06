@@ -1,27 +1,45 @@
 PODS:
   - Flutter (1.0.0)
+  - flutter_custom_tabs (0.0.1):
+    - Flutter
   - path_provider (0.0.1):
     - Flutter
   - shared_preferences (0.0.1):
     - Flutter
+  - url_launcher (0.0.1):
+    - Flutter
+  - video_player (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Pods/.symlinks/flutter/ios`)
+  - flutter_custom_tabs (from `Pods/.symlinks/plugins/flutter_custom_tabs-0.1.0/ios`)
   - path_provider (from `Pods/.symlinks/plugins/path_provider-0.4.0/ios`)
   - shared_preferences (from `Pods/.symlinks/plugins/shared_preferences-0.4.1/ios`)
+  - url_launcher (from `Pods/.symlinks/plugins/url_launcher-3.0.1/ios`)
+  - video_player (from `Pods/.symlinks/plugins/video_player-0.5.3/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Pods/.symlinks/flutter/ios
+  flutter_custom_tabs:
+    :path: Pods/.symlinks/plugins/flutter_custom_tabs-0.1.0/ios
   path_provider:
     :path: Pods/.symlinks/plugins/path_provider-0.4.0/ios
   shared_preferences:
     :path: Pods/.symlinks/plugins/shared_preferences-0.4.1/ios
+  url_launcher:
+    :path: Pods/.symlinks/plugins/url_launcher-3.0.1/ios
+  video_player:
+    :path: Pods/.symlinks/plugins/video_player-0.5.3/ios
 
 SPEC CHECKSUMS:
   Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
+  flutter_custom_tabs: 9f7596dc1593f2e0d0562ce888dde6447751e97c
   path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
   shared_preferences: 1feebfa37bb57264736e16865e7ffae7fc99b523
+  url_launcher: 0067ddb8f10d36786672aa0722a21717dba3a298
+  video_player: 3964090a33353060ed7f58aa6427c7b4b208ec21
 
 PODFILE CHECKSUM: 0420ab312a523ae0eecfb1fc19ea51dd82cc17c7
 
